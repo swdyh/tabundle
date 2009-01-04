@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<overlay id="TabundleOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript" src="chrome://tabundle/content/tabundle.js" />
+  <menupopup id="menu_ToolsPopup">
+    <menu label="tabundle" insertbefore="sanitizeSeparator">
+      <menupopup>
+        <menuitem label="view" oncommand="Tabundle.view()" />
+        <menuitem label="bundle" oncommand="Tabundle.bundle()" />
+      </menupopup>
+    </menu>
+  </menupopup>
+  <statusbar id="status-bar">
+    <statusbarpanel id="tabundle-panel">
+      <image id="tabundle-status-image"
+        src="chrome://tabundle/content/tabundle_16.png"
+        width="16"
+        height="16"
+        style="margin:0 5px;"
+        mousethrough="never"
+        context="tabundle-status-popup" />
+      <popup id="tabundle-status-popup">
+        <menuitem label="view" oncommand="Tabundle.view()" />
+        <menuitem label="bundle" oncommand="Tabundle.bundle()" />
+      </popup>
+    </statusbarpanel>
+  </statusbar>
+</overlay>

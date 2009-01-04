@@ -1,0 +1,29 @@
+<html>
+<head>
+<link rel="shortcut icon" href="tabundle_16.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Tabundle</title>
+<link rel="stylesheet" type="text/css" href="tabundle.css" />
+<script type="text/javascript" src="tabundle.js"></script>
+<script type="text/javascript">
+window.addEventListener('load', init, false)
+
+function init() {
+  var as = Tabundle.archives()
+  var ul = document.createElement('ul')
+  as.forEach(function(i) {
+    var li = document.createElement('li')
+    var a = document.createElement('a')
+    a.href = 'file://' + Tabundle.archivesDir + '/' + i
+    a.appendChild(document.createTextNode(i))
+    li.appendChild(a)
+    ul.appendChild(li)
+  })
+  document.body.appendChild(ul)
+}
+</script>
+</head>
+<body>
+<h1><img src="tabundle_50.png" />Tabundle</h1>
+</body>
+</html>

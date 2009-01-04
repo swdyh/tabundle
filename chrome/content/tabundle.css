@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+}
+h1 {
+  background-color: #bbb;
+  color: #fff;
+  padding: 10px;
+  border-bottom: 3px solid #ddd;
+}
+h1 img {
+    vertical-align:middle;
+    height: 1em;
+    width: 1em;
+    margin: 0 0.2em;
+}
+a {
+  color: #0af;
+}
+a img {
+  border: 1px solid #ccc;
+}
+ul {
+  list-style: none;
+}
+.title a {
+  text-decoration: none;
+}
+.capture {
+  float:left;
+  margin: 0 50px 70px 0;
+}
+.url {
+  font-size: 80%;
+  text-decoration: none;
+}
+li > br {
+    clear: both;
+}

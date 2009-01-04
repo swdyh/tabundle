@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+    <Description about="urn:mozilla:install-manifest">
+        <em:id>tabundle@relucks.org</em:id>
+        <em:name>Tabundle</em:name>
+        <em:version>0.0.1</em:version>
+        <em:type>2</em:type>
+        <em:description>bundle tabs</em:description>
+        <em:creator>swdyh</em:creator>
+        <em:updateURL>http://www.relucks.org/tabundle/update.rdf</em:updateURL>
+        <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDCP72jzpmyaHgINdOa2JCDfZ5sKXfjeA4it8yqEt3CIj+SE/HhsX3gBaEw6viZouYCrpSfK3nE/bUEhkl6JXKpFD8HHwr/2+nHElrKsR/j/nHmxyV+gS2nzpKxSdfvFU0e49D6kuCC2hTjzkIny/puQ8K732pnUQLoVywhlqew0wIDAQAB</em:updateKey>
+        <em:iconURL>chrome://tabundle/content/tabundle_32.png</em:iconURL>
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>3.0.0</em:minVersion>
+                <em:maxVersion>3.0.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+    </Description>
+</RDF>

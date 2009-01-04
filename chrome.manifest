@@ -1,0 +1,4 @@
+content	 tabundle	chrome/content/
+overlay	 chrome://browser/content/browser.xul	chrome://tabundle/content/overlay.xul
+skin	 tabundle	classic/1.0	chrome/skin/
+resource tabundle-modules modules/
