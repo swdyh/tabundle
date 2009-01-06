@@ -37,10 +37,10 @@ Tabundle.archives = function() {
 }
 
 Tabundle.bundle = function() {
-    var dim = {h: window.innerHeight, w: window.innerWidth - 30}
+    var height = window.innerHeight
     var list = Array.map(gBrowser.mTabs, function(tab) {
         var w = gBrowser.getBrowserForTab(tab).contentWindow
-        var c = Tabundle.capture(w, {x: 0, y:0}, dim, 0.3)
+        var c = Tabundle.capture(w, {x: 0, y:0}, {h: height, w: w.innerWidth}, 0.3)
         return [w.document.title, w.location.href, c]
     })
     var date = Tabundle.dateString()
