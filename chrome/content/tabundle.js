@@ -30,8 +30,7 @@ Tabundle.archives = function() {
     var list = []
     while (entries.hasMoreElements()) {
         var entry = entries.getNext().QueryInterface(Components.interfaces.nsIFile)
-        var tmp = entry.path.split('/')
-        list.push(tmp[tmp.length - 1])
+        list.push(entry.leafName)
     }
     return list.filter(function(i) { return /\.html$/.test(i) })
 }
