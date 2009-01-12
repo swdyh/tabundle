@@ -1,0 +1,6 @@
+<!ENTITY menu.view   "View">
+<!ENTITY menu.bundle "Bundle">
+<!ENTITY menu.pref   "Settings">
+
+<!ENTITY label.browse "Browse">
+<!ENTITY label.close  "Close">
