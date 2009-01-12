@@ -10,13 +10,14 @@ Tabundle.init = function() {
         getItemLocation(Tabundle.id)
     Tabundle.extDir = ext.path
 
-    var profDir = Components.classes["@mozilla.org/file/directory_service;1"].
-        getService(Components.interfaces.nsIProperties).
-        get("ProfD", Components.interfaces.nsIFile)
-
-    profDir.append('tabundle')
-    Tabundle.IOUtils.mkdir(profDir)
-    Tabundle.archivesDir = profDir.path
+    if (!Tabundle.getHtmlDir()) {
+        var profDir = Components.classes["@mozilla.org/file/directory_service;1"].
+            getService(Components.interfaces.nsIProperties).
+            get("ProfD", Components.interfaces.nsIFile)
+        profDir.append('tabundle')
+        Tabundle.IOUtils.mkdir(profDir)
+        Tabundle.setHtmlDir(profDir.path)
+    }
 }
 
 Tabundle.view = function() {
@@ -24,8 +25,16 @@ Tabundle.view = function() {
     gBrowser.selectedTab = gBrowser.addTab(index)
 }
 
+Tabundle.getHtmlDir = function() {
+    return Application.prefs.getValue('extensions.tabundle.htmlDir', null)
+}
+
+Tabundle.setHtmlDir = function(dir) {
+    return Application.prefs.setValue('extensions.tabundle.htmlDir', dir)
+}
+
 Tabundle.archives = function() {
-    var file = Tabundle.IOUtils.getFile(Tabundle.archivesDir)
+    var file = Tabundle.IOUtils.getFile(Tabundle.getHtmlDir())
     var entries = file.directoryEntries
     var list = []
     while (entries.hasMoreElements()) {
@@ -54,7 +63,7 @@ Tabundle.bundle = function() {
     }
     var html = Tabundle.createHtml(opt)
     var fileName = date + '.html'
-    var out = Tabundle.IOUtils.getFile(Tabundle.archivesDir)
+    var out = Tabundle.IOUtils.getFile(Tabundle.getHtmlDir())
     out.append(fileName)
     Tabundle.IOUtils.write(out, html)
     gBrowser.selectedTab = gBrowser.addTab('file://' + out.path)
@@ -129,6 +138,11 @@ Tabundle.style = function() {
     file.append('content')
     file.append('tabundle.css')
     return Tabundle.IOUtils.read(file)
+}
+
+Tabundle.pref = function() {
+    var url = 'chrome://tabundle/content/pref.xul'
+    return window.openDialog(url, "_blank", "resizable,dialog=no,centerscreen");
 }
 
 Tabundle.init()

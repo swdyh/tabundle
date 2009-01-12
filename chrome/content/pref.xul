@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<prefwindow id="tabundle-window"
+     title="tabundle settings"
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<prefpane id="tabundle-prefpane" label="tabundle settings">
+<script>
+function selectHtmlDir() {
+    var nfp = Components.interfaces.nsIFilePicker
+    var fp = Components.classes['@mozilla.org/filepicker;1'].createInstance(nfp)
+    fp.init(window, 'select html dir', nfp.modeGetFolder)
+
+    if (fp.show() == nfp.returnOK) {
+        var hd = getField('htmlDir')
+        hd.value = fp.file.path
+        var pp = document.getElementsByTagName('prefpane')[0]
+        pp.userChangedValue(hd)
+    }
+}
+function getField(name){
+    return document.getElementsByAttribute('preference', name)[0];
+}
+</script>
+<preferences>
+  <preference id="htmlDir" name="extensions.tabundle.htmlDir" type="string" />
+  <preference id="excludeUrls" name="extensions.tabundle.excludeUrls" type="string" />
+</preferences>
+<hbox align="center">
+  <label value="html dir:" />
+  <textbox preference="htmlDir" flex="1" readonly="readonly" />
+  <button label="browse" onclick="selectHtmlDir()" />
+</hbox>
+<!--
+<hbox align="center">
+  <label value="exclude urls:" />
+  <textbox preference="excludeUrls" flex="1" />
+</hbox>
+-->
+<hbox>
+  <spacer flex="1" />
+  <button label="close" onclick="window.close()" />
+</hbox>
+</prefpane>
+</prefwindow>

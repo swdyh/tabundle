@@ -18,5 +18,6 @@
                 <em:maxVersion>3.0.*</em:maxVersion>
             </Description>
         </em:targetApplication>
+        <em:optionsURL>chrome://tabundle/content/pref.xul</em:optionsURL>
     </Description>
 </RDF>

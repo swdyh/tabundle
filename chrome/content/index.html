@@ -14,7 +14,7 @@ function init() {
   as.forEach(function(i) {
     var li = document.createElement('li')
     var a = document.createElement('a')
-    a.href = 'file://' + Tabundle.archivesDir + '/' + i
+    a.href = 'file://' + Tabundle.getHtmlDir() + '/' + i
     a.appendChild(document.createTextNode(i))
     li.appendChild(a)
     ul.appendChild(li)
