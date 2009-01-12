@@ -9,7 +9,7 @@
 window.addEventListener('load', init, false)
 
 function init() {
-  var as = Tabundle.archives()
+  var as = Tabundle.archives().reverse()
   var ul = document.createElement('ul')
   as.forEach(function(i) {
     var li = document.createElement('li')

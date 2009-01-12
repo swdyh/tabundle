@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://tabundle/locale/tabundle.dtd">
 <prefwindow id="tabundle-window"
      title="tabundle settings"
      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -28,7 +29,7 @@ function getField(name){
 <hbox align="center">
   <label value="html dir:" />
   <textbox preference="htmlDir" flex="1" readonly="readonly" />
-  <button label="browse" onclick="selectHtmlDir()" />
+  <button label="&label.browse;" onclick="selectHtmlDir()" />
 </hbox>
 <!--
 <hbox align="center">

@@ -22,9 +22,9 @@ task :xpi do
 end
 
 desc "install to local profile directory"
-task :install => [:clean, :uninstall] do
+task :install => [:clean] do
   install_path = "#{PROFILE_DIR}/extensions/#{extension_id}"
-  FileUtils.cp_r Dir.pwd, install_path
+  FileUtils.cp_r Dir.glob('*'), install_path
   puts "copy #{install_path}"
 end
 

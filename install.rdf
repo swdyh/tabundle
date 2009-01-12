@@ -4,7 +4,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>tabundle@relucks.org</em:id>
         <em:name>Tabundle</em:name>
-        <em:version>0.0.3</em:version>
+        <em:version>0.0.4</em:version>
         <em:type>2</em:type>
         <em:description>bundle tabs</em:description>
         <em:creator>swdyh</em:creator>

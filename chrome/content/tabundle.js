@@ -71,8 +71,7 @@ Tabundle.bundle = function() {
 
 Tabundle.dateString = function() {
     var d = new Date()
-    return [d.getFullYear(), d.getMonth() + 1,
-            d.getDate()].map(function(i) { return i.toString() }).join('-')
+    return d.toLocaleFormat('%Y-%m-%d')
 }
 
 Tabundle.createHtml = function(opt) {
