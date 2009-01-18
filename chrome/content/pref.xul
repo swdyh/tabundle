@@ -39,7 +39,7 @@ function getField(name){
 -->
 <hbox>
   <spacer flex="1" />
-  <button label="close" onclick="window.close()" />
+  <button label="&label.close;" onclick="window.close()" />
 </hbox>
 </prefpane>
 </prefwindow>

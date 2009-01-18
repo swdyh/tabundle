@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
 }
@@ -8,10 +9,10 @@ h1 {
   border-bottom: 3px solid #ddd;
 }
 h1 img {
-    vertical-align:middle;
-    height: 1em;
-    width: 1em;
-    margin: 0 0.2em;
+  vertical-align:middle;
+  height: 1em;
+  width: 1em;
+  margin: 0 0.2em;
 }
 a {
   color: #0af;
@@ -22,12 +23,19 @@ a img {
 ul {
   list-style: none;
 }
+ul#tabundle_list {
+  padding: 0;
+}
+ul#tabundle_list > li {
+  padding: 20px;
+  margin: 30px 10px;
+}
 .title a {
   text-decoration: none;
 }
 .capture {
   float:left;
-  margin: 0 50px 70px 0;
+  margin: 0 50px 0 0;
 }
 .url {
   font-size: 80%;

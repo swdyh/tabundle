@@ -11,6 +11,7 @@ window.addEventListener('load', init, false)
 function init() {
   var as = Tabundle.archives().reverse()
   var ul = document.createElement('ul')
+  ul.id = 'tabundle_index'
   as.forEach(function(i) {
     var li = document.createElement('li')
     var a = document.createElement('a')

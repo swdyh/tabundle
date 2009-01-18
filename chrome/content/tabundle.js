@@ -71,7 +71,12 @@ Tabundle.bundle = function() {
 
 Tabundle.dateString = function() {
     var d = new Date()
-    return d.toLocaleFormat('%Y-%m-%d')
+    var list = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
+    return list.map(function(i) {
+        var s = i.toString()
+        return s.length == 1 ? '0' + s : s
+    }).join('-')
+    // return d.toLocaleFormat('%Y-%m-%d')
 }
 
 Tabundle.createHtml = function(opt) {
@@ -85,7 +90,7 @@ Tabundle.createHtml = function(opt) {
     html.push(['</head>'])
     html.push(['<body>'])
     html.push(['<h1>', '<img src="', opt['fav'], '" />', opt['title'], '</h1>'])
-    html.push(['<ul>'])
+    html.push(['<ul id="tabundle_list">'])
     opt['list'].forEach(function(i) {
         html.push(['<li>'])
         html.push(['<div class="capture"><a href="', i[1], '">',
