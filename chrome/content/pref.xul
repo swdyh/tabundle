@@ -3,7 +3,8 @@
 <!DOCTYPE prefwindow SYSTEM "chrome://tabundle/locale/tabundle.dtd">
 <prefwindow id="tabundle-window"
      title="tabundle settings"
-     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+     buttons=",">
 <prefpane id="tabundle-prefpane" label="tabundle settings">
 <script>
 function selectHtmlDir() {
