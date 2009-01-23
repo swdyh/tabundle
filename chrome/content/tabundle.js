@@ -21,8 +21,8 @@ Tabundle.init = function() {
 }
 
 Tabundle.view = function() {
-    var index = Tabundle.contentPath + '/index.html'
-    gBrowser.selectedTab = gBrowser.addTab(index)
+    var path = Tabundle.createIndexHtml()
+    gBrowser.selectedTab = gBrowser.addTab(path)
 }
 
 Tabundle.getHtmlDir = function() {
@@ -41,10 +41,28 @@ Tabundle.archives = function() {
         var entry = entries.getNext().QueryInterface(Components.interfaces.nsIFile)
         list.push(entry.leafName)
     }
-    return list.filter(function(i) { return /\.html$/.test(i) })
+    return list.filter(function(i) {
+        return /\.html$/.test(i) && i != 'index.html'
+    })
 }
 
 Tabundle.bundle = function() {
+    Tabundle.createIndexHtml()
+    var path = Tabundle.createListHtml()
+    gBrowser.selectedTab = gBrowser.addTab('file://' + path)
+}
+
+Tabundle.dateString = function() {
+    var d = new Date()
+    var list = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
+    return list.map(function(i) {
+        var s = i.toString()
+        return s.length == 1 ? '0' + s : s
+    }).join('-')
+    // return d.toLocaleFormat('%Y-%m-%d')
+}
+
+Tabundle.createListHtml = function() {
     var height = window.innerHeight
     var list = Array.map(gBrowser.mTabs, function(tab) {
         var w = gBrowser.getBrowserForTab(tab).contentWindow
@@ -61,50 +79,75 @@ Tabundle.bundle = function() {
         fav: Tabundle.icon(size).toDataURL(),
         style: Tabundle.style()
     }
-    var html = Tabundle.createHtml(opt)
+    var html = Tabundle.listHtml(opt)
     var fileName = date + '.html'
     var out = Tabundle.IOUtils.getFile(Tabundle.getHtmlDir())
     out.append(fileName)
     Tabundle.IOUtils.write(out, html)
-    gBrowser.selectedTab = gBrowser.addTab('file://' + out.path)
+    return out.path
 }
 
-Tabundle.dateString = function() {
-    var d = new Date()
-    var list = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
-    return list.map(function(i) {
-        var s = i.toString()
-        return s.length == 1 ? '0' + s : s
-    }).join('-')
-    // return d.toLocaleFormat('%Y-%m-%d')
-}
-
-Tabundle.createHtml = function(opt) {
-    var html = []
-    html.push(['<html>'])
-    html.push(['<head>'])
-    html.push(['<link rel="shortcut icon" href="', opt['fav'], '" />'])
-    html.push(['<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>'])
-    html.push(['<title>', opt['title'], '</title>'])
-    html.push(['<style type="text/css">', opt['style'], '</style>'])
-    html.push(['</head>'])
-    html.push(['<body>'])
-    html.push(['<h1>', '<img src="', opt['fav'], '" />', opt['title'], '</h1>'])
-    html.push(['<ul id="tabundle_list">'])
+Tabundle.listHtml = function(opt) {
+    var html = <html>
+        <head>
+            <link rel="shortcut icon" href={opt['fav']} />
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <title>{opt['title']}</title>
+            <style type="text/css">{opt['style']}</style>
+        </head>
+        <body>
+            <h1><img src={opt['fav']} />{opt['title']}</h1>
+        </body>
+    </html>
+    var ul = <ul id="tabundle_list"></ul>
     opt['list'].forEach(function(i) {
-        html.push(['<li>'])
-        html.push(['<div class="capture"><a href="', i[1], '">',
-                   '<img style="max-width:300px;" src="', i[2],
-                   '"/></a></div>'])
-        html.push(['<div class="title"><a href="', i[1], '">', i[0],  '</a></div>'])
-        html.push(['<div class="url"><a href="', i[1], '">', i[1],  '</a></div>'])
-        html.push(['<br />'])
-        html.push(['</li>'])
+        var li = <li>
+            <div class="capture"><a href={i[1]}><img src={i[2]} /></a></div>
+            <div class="title"><a href={i[1]}>{i[0]}</a></div>
+            <div class="url"><a href={i[1]}>{i[1]}</a></div>
+            <br />
+        </li>
+        ul.appendChild(li)
     })
-    html.push(['</ul>'])
-    html.push(['</body>'])
-    html.push(['</html>'])
-    return html.map(function(i) { return i.join('') }).join('\n')
+    html.body.ul = ul
+    return html.toXMLString()
+}
+
+Tabundle.createIndexHtml = function() {
+    var icon = Tabundle.icon(20).toDataURL()
+    var opt = {
+        list: Tabundle.archives().reverse(),
+        fav: icon,
+        icon: icon,
+        style: Tabundle.style()
+    }
+    var indexHtml = Tabundle.indexHtml(opt)
+    var out = Tabundle.IOUtils.getFile(Tabundle.getHtmlDir())
+    out.append('index.html')
+    Tabundle.IOUtils.write(out, indexHtml)
+    return out.path
+}
+
+Tabundle.indexHtml = function(opt) {
+    var html = <html>
+        <head>
+            <link rel="shortcut icon" href={opt['fav']} />
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <title>Tabundle</title>
+            <style type="text/css">{opt['style']}</style>
+        </head>
+        <body>
+            <h1><img src={opt['icon']} />Tabundle</h1>
+        </body>
+    </html>
+    var ul = <ul id="tabundle_index"></ul>
+    opt['list'].forEach(function(i) {
+        var url = 'file://' + Tabundle.getHtmlDir() + '/' + i
+        var li = <li><a href={url}>{i}</a></li>
+        ul.appendChild(li)
+    })
+    html.body.ul = ul
+    return html.toXMLString()
 }
 
 Tabundle.capture = function(win, pos, dim, scale){

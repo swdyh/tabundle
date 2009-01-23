@@ -26,9 +26,12 @@ ul {
 ul#tabundle_list {
   padding: 0;
 }
-ul#tabundle_list > li {
+ul#tabundle_list li {
   padding: 20px;
   margin: 30px 10px;
+}
+ul#tabundle_list li br {
+    clear: both;
 }
 .title a {
   text-decoration: none;
@@ -37,10 +40,10 @@ ul#tabundle_list > li {
   float:left;
   margin: 0 50px 0 0;
 }
+.capture img {
+    max-width:300px
+}
 .url {
   font-size: 80%;
   text-decoration: none;
-}
-li > br {
-    clear: both;
 }
