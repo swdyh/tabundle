@@ -2,21 +2,21 @@
 <RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
          xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <RDF:Description RDF:about="rdf:#$LMQtH3"
-                   em:version="0.0.9">
-    <em:targetApplication RDF:resource="rdf:#$OMQtH3"/>
+  <RDF:Description RDF:about="urn:mozilla:extension:tabundle@relucks.org"
+                   em:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBALI1iOgLldVlfxenaYB0dMp/oU+PjSVmpcfe9LOUoTZ9PlmMggd1H6et4G/D+TkEnwcNH63mXNyIfEIE0xs2b+KmR4aY0LsCz7EM6Cw/7EB8WaiqtwhKX+vwYxZhgAuH1Zk3YxS67FMgiE1ieCLJr0tElsNZ0LEBE5vXlWzBbAb4">
+    <em:updates RDF:resource="rdf:#$KMQtH3"/>
   </RDF:Description>
-  <RDF:Seq RDF:about="rdf:#$KMQtH3">
-    <RDF:li RDF:resource="rdf:#$LMQtH3"/>
-  </RDF:Seq>
   <RDF:Description RDF:about="rdf:#$OMQtH3"
-                   em:updateHash="sha1:f4f766717bb12600dbb64b7c3b2797c7edbc1527"
+                   em:updateHash="sha1:90ba6220963551a10dd44f64b4ad6482cdd4de13"
                    em:maxVersion="3.5.*"
                    em:updateLink="http://www.relucks.org/tabundle/tabundle.xpi"
                    em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                    em:minVersion="3.0.0" />
-  <RDF:Description RDF:about="urn:mozilla:extension:tabundle@relucks.org"
-                   em:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBAF0It9mH6DFf7dKNs294sO5+Cct+/F5rOdWjL1WOQf3ZioISXvj9rh59XocMfy+NPe1r/jhB6jDzScsl3bbFnehr7CDYU9dSfLWlqaaVQxvhM4KUwMD/jlTfP7ggBrrYjUsAqvaTwXReu3dQ9Owv7vu3iqDv0U34IAUK5WVg8aY3">
-    <em:updates RDF:resource="rdf:#$KMQtH3"/>
+  <RDF:Seq RDF:about="rdf:#$KMQtH3">
+    <RDF:li RDF:resource="rdf:#$LMQtH3"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="rdf:#$LMQtH3"
+                   em:version="0.0.10">
+    <em:targetApplication RDF:resource="rdf:#$OMQtH3"/>
   </RDF:Description>
 </RDF:RDF>
