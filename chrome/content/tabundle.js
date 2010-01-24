@@ -49,7 +49,9 @@ Tabundle.archives = function() {
 Tabundle.bundle = function() {
     Tabundle.createIndexHtml()
     var path = Tabundle.createListHtml()
-    gBrowser.selectedTab = gBrowser.addTab('file://' + path)
+    if (path) {
+        gBrowser.selectedTab = gBrowser.addTab('file://' + path)
+    }
 }
 
 Tabundle.dateString = function() {
@@ -83,8 +85,22 @@ Tabundle.createListHtml = function() {
     var fileName = date + '.html'
     var out = Tabundle.IOUtils.getFile(Tabundle.getHtmlDir())
     out.append(fileName)
-    Tabundle.IOUtils.write(out, html)
-    return out.path
+    var path = out.path
+
+    if (out.exists()) {
+        var opt = {
+            mode: Components.interfaces.nsIFilePicker.modeSave,
+            defaultString: fileName,
+            displayDirectory: Tabundle.IOUtils.getFile(Tabundle.getHtmlDir()),
+            filters: Components.interfaces.nsIFilePicker.filterHTML
+        }
+        path = Tabundle.selectFile(opt)
+    }
+
+    if (path) {
+        Tabundle.IOUtils.write(path, html)
+        return path
+    }
 }
 
 Tabundle.listHtml = function(opt) {
@@ -190,6 +206,29 @@ Tabundle.style = function() {
 Tabundle.pref = function() {
     var url = 'chrome://tabundle/content/pref.xul'
     return window.openDialog(url, "_blank", "resizable,dialog=no,centerscreen");
+}
+
+Tabundle.selectFile = function(opt) {
+    var opt = opt || {}
+    var nfp = Components.interfaces.nsIFilePicker
+    var fp = Components.classes['@mozilla.org/filepicker;1'].createInstance(nfp)
+    var title = opt['title'] || 'Select a File'
+    var mode = opt['mode'] || nfp.modeOpen
+    fp.init(window, title, mode)
+
+    if (opt['defaultString']) {
+        fp.defaultString = opt['defaultString']
+    }
+    if (opt['displayDirectory']) {
+        fp.displayDirectory = opt['displayDirectory']
+    }
+    if (opt['filters']) {
+        fp.appendFilters(opt['filters'])
+    }
+    var r = fp.show()
+    if (r == nfp.returnOK || r == nfp.returnReplace) {
+        return fp.file.path
+    }
 }
 
 Tabundle.init()
