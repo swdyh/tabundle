@@ -1,5 +1,5 @@
-<!ENTITY menu.view   "View">
-<!ENTITY menu.bundle "Bundle">
+<!ENTITY menu.view   "List">
+<!ENTITY menu.bundle "Bundle Tabs">
 <!ENTITY menu.pref   "Settings">
 
 <!ENTITY label.browse "Browse">
