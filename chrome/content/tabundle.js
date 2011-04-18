@@ -4,12 +4,24 @@ Tabundle.contentPath = 'chrome://tabundle/content'
 Components.utils.import('resource://tabundle-modules/ioutils.jsm', Tabundle)
 
 Tabundle.init = function() {
-    var ext = Components.classes["@mozilla.org/extensions/manager;1"].
-        getService(Components.interfaces.nsIExtensionManager).
-        getInstallLocation(Tabundle.id).
-        getItemLocation(Tabundle.id)
-    Tabundle.extDir = ext.path
+    try {
+        var ext = Components.classes["@mozilla.org/extensions/manager;1"].
+            getService(Components.interfaces.nsIExtensionManager).
+            getInstallLocation(Tabundle.id).
+            getItemLocation(Tabundle.id)
+        Tabundle.extDir = ext.path
+        Tabundle.initDir()
+    }
+    catch(e) {
+        Components.utils.import("resource://gre/modules/AddonManager.jsm")
+        AddonManager.getAddonByID(Tabundle.id, function(addon) {
+            Tabundle.extDir = addon.getResourceURI("").QueryInterface(Components.interfaces.nsIFileURL).file.path
+            Tabundle.initDir()
+        })
+    }
+}
 
+Tabundle.initDir = function() {
     if (!Tabundle.getHtmlDir()) {
         var profDir = Components.classes["@mozilla.org/file/directory_service;1"].
             getService(Components.interfaces.nsIProperties).
