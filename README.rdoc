@@ -1,7 +1,7 @@
 
 = tabundle
 
-A Firefox extention for bundling tabs. 
+A Firefox extention for saving a snapshot of your currently open tabs in an easily-viewed html file and view past tab bundles.
 
 == Installation
 

@@ -4,18 +4,17 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>tabundle@relucks.org</em:id>
         <em:name>Tabundle</em:name>
-        <em:version>0.0.10</em:version>
+        <em:version>0.0.12</em:version>
+        <em:unpack>true</em:unpack>
         <em:type>2</em:type>
-        <em:description>bundle tabs</em:description>
+        <em:description>save a snapshot of your currently open tabs in an easily-viewed html file and view past tab bundles</em:description>
         <em:creator>swdyh</em:creator>
-        <em:updateURL>http://www.relucks.org/tabundle/update.rdf</em:updateURL>
-        <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDCP72jzpmyaHgINdOa2JCDfZ5sKXfjeA4it8yqEt3CIj+SE/HhsX3gBaEw6viZouYCrpSfK3nE/bUEhkl6JXKpFD8HHwr/2+nHElrKsR/j/nHmxyV+gS2nzpKxSdfvFU0e49D6kuCC2hTjzkIny/puQ8K732pnUQLoVywhlqew0wIDAQAB</em:updateKey>
         <em:iconURL>chrome://tabundle/content/tabundle_32.png</em:iconURL>
         <em:targetApplication>
             <Description>
                 <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-                <em:minVersion>3.0.0</em:minVersion>
-                <em:maxVersion>3.*</em:maxVersion>
+                <em:minVersion>3.0</em:minVersion>
+                <em:maxVersion>4.0</em:maxVersion>
             </Description>
         </em:targetApplication>
         <em:optionsURL>chrome://tabundle/content/pref.xul</em:optionsURL>

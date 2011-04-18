@@ -7,7 +7,7 @@
     <em:updates RDF:resource="rdf:#$KMQtH3"/>
   </RDF:Description>
   <RDF:Description RDF:about="rdf:#$OMQtH3"
-                   em:updateHash="sha1:90ba6220963551a10dd44f64b4ad6482cdd4de13"
+                   em:updateHash="sha1:5489e06a3cdeeb7d677b159ca2f2dce707d09453"
                    em:maxVersion="3.5.*"
                    em:updateLink="http://www.relucks.org/tabundle/tabundle.xpi"
                    em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
@@ -16,7 +16,7 @@
     <RDF:li RDF:resource="rdf:#$LMQtH3"/>
   </RDF:Seq>
   <RDF:Description RDF:about="rdf:#$LMQtH3"
-                   em:version="0.0.10">
+                   em:version="0.0.11">
     <em:targetApplication RDF:resource="rdf:#$OMQtH3"/>
   </RDF:Description>
 </RDF:RDF>
