@@ -4,7 +4,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>tabundle@relucks.org</em:id>
         <em:name>Tabundle</em:name>
-        <em:version>0.0.12</em:version>
+        <em:version>0.0.13</em:version>
         <em:unpack>true</em:unpack>
         <em:type>2</em:type>
         <em:description>save a snapshot of your currently open tabs in an easily-viewed html file and view past tab bundles</em:description>
@@ -14,7 +14,7 @@
             <Description>
                 <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
                 <em:minVersion>3.0</em:minVersion>
-                <em:maxVersion>4.0</em:maxVersion>
+                <em:maxVersion>9.*</em:maxVersion>
             </Description>
         </em:targetApplication>
         <em:optionsURL>chrome://tabundle/content/pref.xul</em:optionsURL>
