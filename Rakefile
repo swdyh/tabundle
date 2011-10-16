@@ -17,7 +17,9 @@ desc "create the xpi file and use the version number in the file name"
 task :xpi do
   FileUtils.rm_rf Dir.glob('*.xpi')
   file = xpi_filename
-  sh "zip -qr -9 #{file} *"
+  #  sh "zip -qr -9 #{file} *"
+  # chrome chrome.manifest install.rdf modules update.rdf
+  sh "zip -qr -9 #{file} chrome chrome.manifest install.rdf modules update.rdf"
   puts "create #{file}"
 end
 
