@@ -11,12 +11,14 @@ Tabundle.init = function() {
             getItemLocation(Tabundle.id)
         Tabundle.extDir = ext.path
         Tabundle.initDir()
+        Tabundle.initStatuBar()
     }
     catch(e) {
         Components.utils.import("resource://gre/modules/AddonManager.jsm")
         AddonManager.getAddonByID(Tabundle.id, function(addon) {
             Tabundle.extDir = addon.getResourceURI("").QueryInterface(Components.interfaces.nsIFileURL).file.path
             Tabundle.initDir()
+            Tabundle.initStatuBar()
         })
     }
 }
@@ -29,6 +31,14 @@ Tabundle.initDir = function() {
         profDir.append('tabundle')
         Tabundle.IOUtils.mkdir(profDir)
         Tabundle.setHtmlDir(profDir.path)
+    }
+}
+
+Tabundle.initStatuBar = function() {
+    var tp = document.getElementById('tabundle-panel')
+    if (tp) {
+        var v = Application.prefs.getValue('extensions.tabundle.show_icon_in_statusbar', true)
+        tp.hidden = !v
     }
 }
 
