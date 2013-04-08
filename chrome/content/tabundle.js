@@ -64,7 +64,7 @@ Tabundle.archives = function() {
         list.push(entry.leafName)
     }
     return list.filter(function(i) {
-        return /\.html$/.test(i) && i != 'index.html'
+        return (/\.html$/).test(i) && i != 'index.html'
     })
 }
 
@@ -116,7 +116,7 @@ Tabundle.createListHtml = function() {
     var path = out.path
 
     if (out.exists()) {
-        var opt = {
+        opt = {
             mode: Components.interfaces.nsIFilePicker.modeSave,
             defaultString: fileName,
             displayDirectory: Tabundle.IOUtils.getFile(Tabundle.getHtmlDir()),
@@ -202,7 +202,7 @@ Tabundle.indexHtml = function(opt) {
     var html = Tabundle.baseHtml(opt)
     var ul = document.createElement('ul')
     ul.setAttribute('id', 'tabundle_index')
-    opt['list'].forEach(function(i) {
+    opt.list.forEach(function(i) {
         var url = 'file://' + Tabundle.getHtmlDir() + '/' + i
         var li = document.createElement('li')
         var a = document.createElement('a')
@@ -258,21 +258,21 @@ Tabundle.pref = function() {
 }
 
 Tabundle.selectFile = function(opt) {
-    var opt = opt || {}
+    opt = opt || {}
     var nfp = Components.interfaces.nsIFilePicker
     var fp = Components.classes['@mozilla.org/filepicker;1'].createInstance(nfp)
-    var title = opt['title'] || 'Select a File'
-    var mode = opt['mode'] || nfp.modeOpen
+    var title = opt.title || 'Select a File'
+    var mode = opt.mode || nfp.modeOpen
     fp.init(window, title, mode)
 
-    if (opt['defaultString']) {
-        fp.defaultString = opt['defaultString']
+    if (opt.defaultString) {
+        fp.defaultString = opt.defaultString
     }
-    if (opt['displayDirectory']) {
-        fp.displayDirectory = opt['displayDirectory']
+    if (opt.displayDirectory) {
+        fp.displayDirectory = opt.displayDirectory
     }
-    if (opt['filters']) {
-        fp.appendFilters(opt['filters'])
+    if (opt.filters) {
+        fp.appendFilters(opt.filters)
     }
     var r = fp.show()
     if (r == nfp.returnOK || r == nfp.returnReplace) {
