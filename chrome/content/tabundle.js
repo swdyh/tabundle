@@ -90,9 +90,15 @@ Tabundle.createListHtml = function() {
     var height = window.innerHeight
     var list = Array.map(gBrowser.mTabs, function(tab) {
         var w = gBrowser.getBrowserForTab(tab).contentWindow
-        var c = Tabundle.capture(w, {x: 0, y:0}, {h: height, w: w.innerWidth}, 0.3)
+        var c = null
+        try {
+            c = Tabundle.capture(w, {x: 0, y:0}, {h: height, w: w.innerWidth}, 0.3)
+        }
+        catch (e) {
+            return null
+        }
         return [w.document.title, w.location.href, c]
-    })
+    }).filter(function(i) { return i })
     var date = Tabundle.dateString()
     var size = gBrowser.mTabs.length.toString()
     var opt = {
@@ -126,29 +132,36 @@ Tabundle.createListHtml = function() {
 }
 
 Tabundle.listHtml = function(opt) {
-    var html = <html>
-        <head>
-            <link rel="shortcut icon" href={opt['fav']} />
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <title>{opt['title']}</title>
-            <style type="text/css">{opt['style']}</style>
-        </head>
-        <body>
-            <h1><img src={opt['fav']} />{opt['title']}</h1>
-        </body>
-    </html>
-    var ul = <ul id="tabundle_list"></ul>
-    opt['list'].forEach(function(i) {
-        var li = <li>
-            <div class="capture"><a href={i[1]}><img src={i[2]} /></a></div>
-            <div class="title"><a href={i[1]}>{i[0]}</a></div>
-            <div class="url"><a href={i[1]}>{i[1]}</a></div>
-            <br />
-        </li>
-        ul.appendChild(li)
+    var html = Tabundle.baseHtml(opt)
+    var ul = document.createElement('ul')
+    ul.setAttribute('id', 'tabundle_list')
+    opt.list.forEach(function(i) {
+        var tags = ['li', 'div', 'a', 'img', 'div', 'a',
+                    'div', 'a'].map(function(tagname) { return document.createElement(tagname) })
+        tags[1].className = 'capture'
+        tags[2].setAttribute('href', i[1])
+        tags[3].setAttribute('src', i[2])
+        tags[4].setAttribute('class', 'title')
+        tags[5].setAttribute('href', i[1])
+        tags[5].appendChild(document.createTextNode(i[0]))
+        tags[6].setAttribute('class', 'url')
+        tags[7].setAttribute('href', i[1])
+        tags[7].appendChild(document.createTextNode(i[1]))
+        tags[0].appendChild(tags[1])
+        tags[0].appendChild(tags[4])
+        tags[0].appendChild(tags[6])
+        tags[0].appendChild(document.createElement('br'))
+        tags[1].appendChild(tags[2])
+        tags[2].appendChild(tags[3])
+        tags[4].appendChild(tags[5])
+        tags[6].appendChild(tags[7])
+        ul.appendChild(tags[0])
     })
-    html.body.ul = ul
-    return html.toXMLString()
+    html.lastChild.appendChild(ul)
+    // var pre = document.createElement('pre')
+    // pre.appendChild(document.createTextNode(JSON.stringify(opt, null, 4)))
+    // html.lastChild.appendChild(pre)
+    return html.outerHTML.replace(/ xmlns="[^"]+"/, '')
 }
 
 Tabundle.createIndexHtml = function() {
@@ -166,26 +179,40 @@ Tabundle.createIndexHtml = function() {
     return out.path
 }
 
+Tabundle.baseHtml = function(opt) {
+    var tags = ['html', 'head', 'link', 'meta', 'title', 'style', 'body',
+                'h1', 'img'].map(function(tagname) { return document.createElement(tagname) })
+    tags[2].setAttribute('rel', 'shortcut icon')
+    tags[2].setAttribute('href', opt.icon || opt.fav)
+    tags[3].setAttribute('charset', 'UTF-8')
+    tags[4].appendChild(document.createTextNode('Tabundle'))
+    tags[5].setAttribute('type', 'text/css')
+    tags[5].appendChild(document.createTextNode(opt.style))
+    tags[8].setAttribute('src', opt.icon || opt.fav)
+    tags[0].appendChild(tags[1])
+    tags.slice(2, 6).forEach(function(i) { tags[1].appendChild(i) })
+    tags[0].appendChild(tags[6])
+    tags[6].appendChild(tags[7])
+    tags[7].appendChild(tags[8])
+    tags[7].appendChild(document.createTextNode('Tabundle'))
+    return tags[0]
+}
+
 Tabundle.indexHtml = function(opt) {
-    var html = <html>
-        <head>
-            <link rel="shortcut icon" href={opt['fav']} />
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <title>Tabundle</title>
-            <style type="text/css">{opt['style']}</style>
-        </head>
-        <body>
-            <h1><img src={opt['icon']} />Tabundle</h1>
-        </body>
-    </html>
-    var ul = <ul id="tabundle_index"></ul>
+    var html = Tabundle.baseHtml(opt)
+    var ul = document.createElement('ul')
+    ul.setAttribute('id', 'tabundle_index')
     opt['list'].forEach(function(i) {
         var url = 'file://' + Tabundle.getHtmlDir() + '/' + i
-        var li = <li><a href={url}>{i}</a></li>
+        var li = document.createElement('li')
+        var a = document.createElement('a')
+        a.setAttribute('href', url)
+        a.appendChild(document.createTextNode(i))
+        li.appendChild(a)
         ul.appendChild(li)
     })
-    html.body.ul = ul
-    return html.toXMLString()
+    html.lastChild.appendChild(ul)
+    return html.outerHTML.replace(/ xmlns="[^"]+"/, '')
 }
 
 Tabundle.capture = function(win, pos, dim, scale){
