@@ -95,10 +95,10 @@ Tabundle.createListHtml = function() {
             c = Tabundle.capture(w, {x: 0, y:0}, {h: height, w: w.innerWidth}, 0.3)
         }
         catch (e) {
-            return null
+            c = null
         }
         return [w.document.title, w.location.href, c]
-    }).filter(function(i) { return i })
+    })
     var date = Tabundle.dateString()
     var size = gBrowser.mTabs.length.toString()
     var opt = {
@@ -136,28 +136,45 @@ Tabundle.listHtml = function(opt) {
     var ul = document.createElement('ul')
     ul.setAttribute('id', 'tabundle_list')
     opt.list.forEach(function(i) {
+        var title = i[0]
+        var url = i[1]
+        var capture = i[2]
         var tags = ['li', 'div', 'a', 'img', 'div', 'a',
-                    'div', 'a'].map(function(tagname) { return document.createElement(tagname) })
-        tags[1].className = 'capture'
-        tags[2].setAttribute('href', i[1])
-        tags[3].setAttribute('src', i[2])
-        tags[4].setAttribute('class', 'title')
-        tags[5].setAttribute('href', i[1])
-        tags[5].appendChild(document.createTextNode(i[0]))
-        tags[6].setAttribute('class', 'url')
-        tags[7].setAttribute('href', i[1])
-        tags[7].appendChild(document.createTextNode(i[1]))
+                    'div', 'a'].map(function(t) {
+                        return document.createElement(t)
+                    })
+        tags[1].setAttribute('class', 'capture')
+        tags[2].setAttribute('href', url)
+
+        if (capture) {
+            tags[3].setAttribute('src', capture)
+        }
+        else {
+            tags[3] = document.createElement('span')
+            tags[3].setAttribute('class', 'capture_empty')
+        }
+
         tags[0].appendChild(tags[1])
-        tags[0].appendChild(tags[4])
-        tags[0].appendChild(tags[6])
-        tags[0].appendChild(document.createElement('br'))
         tags[1].appendChild(tags[2])
         tags[2].appendChild(tags[3])
+
+        tags[4].setAttribute('class', 'title')
+        tags[5].setAttribute('href', url)
+        tags[5].appendChild(document.createTextNode(title))
+        tags[0].appendChild(tags[4])
         tags[4].appendChild(tags[5])
+
+        tags[6].setAttribute('class', 'url')
+        tags[7].setAttribute('href', url)
+        tags[7].appendChild(document.createTextNode(url))
+        tags[0].appendChild(tags[6])
         tags[6].appendChild(tags[7])
+
+        tags[0].appendChild(document.createElement('br'))
         ul.appendChild(tags[0])
     })
     html.lastChild.appendChild(ul)
+
     // var pre = document.createElement('pre')
     // pre.appendChild(document.createTextNode(JSON.stringify(opt, null, 4)))
     // html.lastChild.appendChild(pre)
