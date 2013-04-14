@@ -161,7 +161,7 @@ Tabundle.listHtml = function(opt) {
     // var pre = document.createElement('pre')
     // pre.appendChild(document.createTextNode(JSON.stringify(opt, null, 4)))
     // html.lastChild.appendChild(pre)
-    return html.outerHTML.replace(/ xmlns="[^"]+"/, '')
+    return '<!doctype html><html>' + html.innerHTML.replace(/ xmlns="[^"]+"/g, '') + '</html>'
 }
 
 Tabundle.createIndexHtml = function() {
@@ -212,7 +212,7 @@ Tabundle.indexHtml = function(opt) {
         ul.appendChild(li)
     })
     html.lastChild.appendChild(ul)
-    return html.outerHTML.replace(/ xmlns="[^"]+"/, '')
+    return '<!doctype html><html>' + html.innerHTML.replace(/ xmlns="[^"]+"/g, '') + '</html>'
 }
 
 Tabundle.capture = function(win, pos, dim, scale){
