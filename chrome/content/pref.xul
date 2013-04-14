@@ -20,21 +20,7 @@ function selectHtmlDir() {
     }
 }
 function getField(name){
-    return document.getElementsByAttribute('preference', name)[0];
-}
-function check_show_status_bar() {
-     var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
-     .getService(Components.interfaces.nsIWindowMediator)
-     var is_hide = getField('show_icon_in_statusbar').checked
-     var targets = wm.getEnumerator('navigator:browser')
-     var w
-     while (targets.hasMoreElements()) {
-         w = targets.getNext().QueryInterface(Components.interfaces.nsIDOMWindowInternal)
-         var tp = w.document.getElementById('tabundle-panel')
-         if (tp) {
-             tp.hidden = is_hide
-         }
-    }
+    return document.getElementsByAttribute('preference', name)[0]
 }
 </script>
 <preferences>
@@ -46,15 +32,6 @@ function check_show_status_bar() {
   <textbox preference="htmlDir" flex="1" readonly="readonly" />
   <button label="&label.browse;" onclick="selectHtmlDir()" />
 </hbox>
-<hbox align="center">
-  <checkbox label="show icon in statusbar" preference="show_icon_in_statusbar" checked="true" onclick="check_show_status_bar()" />
-</hbox>
-<!--
-<hbox align="center">
-  <label value="exclude urls:" />
-  <textbox preference="excludeUrls" flex="1" />
-</hbox>
--->
 <hbox>
   <spacer flex="1" />
   <button label="&label.close;" onclick="window.close()" />
